@@ -1,0 +1,6 @@
+class chartPage{
+
+    elements = {
+        
+    }
+}
