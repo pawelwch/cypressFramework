@@ -1,13 +1,23 @@
+import loginPage from '../pages/loginPage'
 
 const standardUser = 'standard_user'
 const password = 'secret_sauce'
 const wrongUsername = 'wrongusername'
 const wrongPassword = 'wrongpassword'
 
-Cypress.Commands.add('login', () => {
+beforeEach(() => {
     cy.visit('https://www.saucedemo.com/')
+})
+
+Cypress.Commands.add('login', () => {
     cy.get('#user-name').type(standardUser)
     cy.get('#password').type(password)
     cy.get('#login-button').click()
     cy.url().should('contain', '/inventory.html')
+})
+
+Cypress.Commands.add('loginViaPom', () => {
+    loginPage.typeUsername(standardUser)
+    loginPage.typePassword(password)
+    loginPage.clickLoginButton();
 })
