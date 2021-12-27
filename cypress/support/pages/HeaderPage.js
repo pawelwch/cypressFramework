@@ -1,12 +1,13 @@
 /// <reference types="cypress" />
 
 
-class headerPage{
+class HeaderPage{
 
     elements = {
         hamburgerButton: () => cy.get('#react-burger-menu-btn'),
         cartButton: () => cy.get('#shopping_cart_container'),
         cartCounter: () => cy.get('//*[contains(@class, "shopping_cart_badge")]')
+        
     }
 
     clickOnHamburgerButton() {
@@ -18,4 +19,4 @@ class headerPage{
     }
 }
 
-module.exports = new headerPage();
+export default HeaderPage;
