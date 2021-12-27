@@ -1,4 +1,4 @@
-import loginPage from '../pages/loginPage'
+import loginPage from '../support/pages/LoginPage'
 
 const standardUser = 'standard_user'
 const password = 'secret_sauce'

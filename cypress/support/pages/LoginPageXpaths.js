@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 
-class loginPage{
+class LoginPageXpaths{
 
     elements = {
-        userNameInput: () => cy.get('#user-name'),
-        passwordInput: () => cy.get('#password'),
-        loginButton: () => cy.get("#login-button"),
-        errorMessageBox: () => cy.get('h3[data-test="error"]')
+        userNameInput: () => cy.xpath('//input[@data-test="username"]'),
+        passwordInput: () => cy.xpath('//input[@data-test="password"]'),
+        loginButton: () => cy.xpath('//*[@type="submit"]'),
+        errorMessageBox: () => cy.xpath('//h3')
     }
 
     typeUsername(username) {
@@ -24,4 +24,4 @@ class loginPage{
 
 }
 
-module.exports = new loginPage();
+export default LoginPageXpaths;
