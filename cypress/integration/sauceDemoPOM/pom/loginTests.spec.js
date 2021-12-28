@@ -18,21 +18,19 @@ describe('Testing Login POM', () => {
         })
     });
 
-    it.only('Login to application passing valid Username and valid Password', function() {
+    it('Login to application passing valid Username and valid Password', function() {
         loginPage.typeUsername(this.credentials.standardUser);
         loginPage.typePassword(this.credentials.password);
         loginPage.clickLoginButton();
 
         inventoryPage.elements.titleHeader().should('have.text', 'Products');
         cy.url().should('contain', inventoryPath)
-        cy.url().should('contain', '/inventory.html')
     });
 
     it('Login to application with no Username and no Password', function() {
         loginPage.clickLoginButton();
 
         loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.usernameIsRequiredError)
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Username is required')
         cy.url().should('equal', homeUrl)
     });
 
@@ -41,7 +39,6 @@ describe('Testing Login POM', () => {
         loginPage.clickLoginButton();
 
         loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.passwordIsRequiredError)
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Password is required')
         cy.url().should('equal', homeUrl)
     });
 
@@ -50,7 +47,6 @@ describe('Testing Login POM', () => {
         loginPage.clickLoginButton();
 
         loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.usernameIsRequiredError)
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Username is required')
         cy.url().should('equal', homeUrl)
     });
 
@@ -60,7 +56,6 @@ describe('Testing Login POM', () => {
         loginPage.clickLoginButton();
 
         loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.userIsLockedoutError)
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Sorry, this user has been locked out.')
         cy.url().should('equal', homeUrl)
 
     });
@@ -71,7 +66,6 @@ describe('Testing Login POM', () => {
         loginPage.clickLoginButton();
 
         loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.usernameAndPasswordDoesNotMatchError)
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Username and password do not match any user in this service')
         cy.url().should('equal', homeUrl)
     });
 
@@ -82,8 +76,6 @@ describe('Testing Login POM', () => {
 
 
         loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.usernameAndPasswordDoesNotMatchError)
-        cy.url().should('equal', homeUrl)
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Username and password do not match any user in this service')
         cy.url().should('equal', homeUrl)
     });
 });
