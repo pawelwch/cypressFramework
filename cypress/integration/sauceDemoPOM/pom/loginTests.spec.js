@@ -1,6 +1,5 @@
 import { loginPage } from '../../../support/pages/LoginPage'
 import { inventoryPage } from '../../../support/pages/InventoryPage'
-import { credentials } from '../../../fixtures/fixtures-demo/sauceCredentials'
 
 describe('Testing Login POM', () => {
 
@@ -12,12 +11,15 @@ describe('Testing Login POM', () => {
     beforeEach(function() {
         cy.visit('https://www.saucedemo.com/');
 
-        cy.fixture('fixtures-demo/sauceCredentials').then(credentials => {
+        cy.fixture('fixtures-demo/loginCredentials').then(credentials => {
             this.credentials = credentials;
+        })
+        cy.fixture('fixtures-demo/loginValidation').then(loginErrors => {
+            this.loginErrors = loginErrors;
         })
     });
 
-    it.only('Login to application passing valid Username and valid Password', function() {
+    it('Login to application passing valid Username and valid Password', function() {
         loginPage.typeUsername(this.credentials.standardUser);
         loginPage.typePassword(this.credentials.password);
         loginPage.clickLoginButton();
@@ -29,7 +31,7 @@ describe('Testing Login POM', () => {
     it('Login to application with no Username and no Password', function() {
         loginPage.clickLoginButton();
 
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Username is required')
+        loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.usernameIsRequiredError)
         cy.url().should('equal', homeUrl)
     });
 
@@ -37,7 +39,7 @@ describe('Testing Login POM', () => {
         loginPage.typeUsername(this.credentials.standardUser);
         loginPage.clickLoginButton();
 
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Password is required')
+        loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.passwordIsRequiredError)
         cy.url().should('equal', homeUrl)
     });
 
@@ -45,7 +47,7 @@ describe('Testing Login POM', () => {
         loginPage.typePassword(this.credentials.password);
         loginPage.clickLoginButton();
 
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Username is required')
+        loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.usernameIsRequiredError)
         cy.url().should('equal', homeUrl)
     });
 
@@ -54,7 +56,7 @@ describe('Testing Login POM', () => {
         loginPage.typePassword(this.credentials.password);
         loginPage.clickLoginButton();
 
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Sorry, this user has been locked out.')
+        loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.userIsLockedoutError)
         cy.url().should('equal', homeUrl)
 
     });
@@ -64,7 +66,7 @@ describe('Testing Login POM', () => {
         loginPage.typePassword(this.credentials.password);
         loginPage.clickLoginButton();
 
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Username and password do not match any user in this service')
+        loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.usernameAndPasswordDoesNotMatchError)
         cy.url().should('equal', homeUrl)
     });
 
@@ -73,7 +75,7 @@ describe('Testing Login POM', () => {
         loginPage.typePassword(this.credentials.wrongPassword);
         loginPage.clickLoginButton();
 
-        loginPage.elements.errorMessageBox().should('have.text', 'Epic sadface: Username and password do not match any user in this service')
+        loginPage.elements.errorMessageBox().should('have.text', this.loginErrors.usernameAndPasswordDoesNotMatchError)
         cy.url().should('equal', homeUrl)
     });
 });
