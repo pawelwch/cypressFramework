@@ -1,5 +1,5 @@
-import { loginPage } from '../../../support/pages/LoginPage'
-import { inventoryPage } from '../../../support/pages/InventoryPage'
+// import { loginPage } from '../../../support/page_objects/LoginPage'
+import { inventoryPage } from '../../../support/page_objects/InventoryPage'
 
 describe('Cart tests', () => {
 
@@ -13,20 +13,16 @@ describe('Cart tests', () => {
         cy.get('[class="title"]').contains('Your Cart').should('be.visible')
     })
 
-    it.only('Add to cart backpack and go through payment process ', () => {
+    it('Add to cart backpack and go through payment process ', () => {
         inventoryPage.clickOnBackpackAddToCartButton()
         cy.get('.shopping_cart_link').invoke('text').then( value => {
             expect(value).to.equal('1')
         })
-        
-        
-
-
 
     })
 
-    it('Add to cart bike light and go through payment process ', () => {
-        
+    it.only('Add to cart bike light and go through payment process ', () => {
+        inventoryPage.clickAddToCartButton(inventoryPage.elements.backpackAddToCartButton)
     })
 
 })

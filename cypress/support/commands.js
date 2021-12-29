@@ -1,4 +1,4 @@
-import loginPage from '../support/pages/LoginPage'
+import loginPage from './page_objects/LoginPage'
 
 const standardUser = 'standard_user'
 const password = 'secret_sauce'
@@ -21,3 +21,7 @@ Cypress.Commands.add('loginViaPom', () => {
     loginPage.typePassword(password)
     loginPage.clickLoginButton();
 })
+
+Cypress.Commands.add("getByDataTestSelector", (selector, ...args) => {
+    return cy.get(`[data-test=${selector}]`, ...args);
+  });

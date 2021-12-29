@@ -1,5 +1,5 @@
-import { loginPage } from '../../../support/pages/LoginPage'
-import { inventoryPage } from '../../../support/pages/InventoryPage'
+import { loginPage } from '../../../support/page_objects/LoginPage'
+import { inventoryPage } from '../../../support/page_objects/InventoryPage'
 
 describe('Testing Login POM', () => {
 
